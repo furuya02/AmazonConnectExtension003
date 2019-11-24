@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Extened CCP</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="amazon-connect-v1.3.2.js"></script>
+</head>
+ 
+<body>
+    <div id="header">
+        <button id="login_button" onclick="login()">Login</button>
+        <div id=user_name></div>
+    </div>
+    <center>
+        <div id="containerDiv" style="width: 320px; height: 465px"></div>
+    </center>
+</body>
+ 
+<script type="text/javascript">
+    const connect_instance_name = 'sample';
+    const ccpUrl = `https://${connect_instance_name}.awsapps.com/connect/ccp#/`;
+
+    connect.core.initCCP(containerDiv, {
+        ccpUrl:        ccpUrl,
+        loginPopup:    false, // ログイン画面をポップアップしない
+        softphone: {
+            allowFramedSoftphone: true
+        },
+    });
+    connect.agent(function(agent) {
+        const config = agent.getConfiguration();
+        $("#user_name").text(config.username);
+    });
+ 
+    let bus = connect.core.getEventBus();
+    bus.subscribe(connect.EventType.TERMINATED, function () {
+        $('#user_name').text('');
+        $('#login_button').show();
+        location.reload();
+    });
+    bus.subscribe(connect.AgentEvents.INIT, function (){
+        $('#login_button').hide();
+        handleWin.close();
+    });
+ 
+    function login() {
+        handleWin = window.open(`https://${connect_instance_name}.awsapps.com/connect/login?`);
+    }
+</script>
+</html>

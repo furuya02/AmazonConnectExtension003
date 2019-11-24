@@ -1,0 +1,26 @@
+body {
+    padding: 0px;
+    margin:0;
+}
+ 
+#header {
+    width:100%;
+    color: white;
+    background-color: seagreen;
+    font-weight: bold; 
+    padding:10px;
+}
+ 
+#user_name {
+    display:inline;
+}
+ 
+#login_button {
+    width:100px;
+    height:25px;
+    font-size: 15px;
+}
+ 
+#containerDiv {
+    padding: 20px;
+}
