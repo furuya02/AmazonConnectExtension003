@@ -20,11 +20,13 @@
  
 <script type="text/javascript">
     const connect_instance_name = 'sample';
-    const ccpUrl = `https://${connect_instance_name}.awsapps.com/connect/ccp#/`;
+    const region = 'ap-northeast-1';
+    const ccpUrl = `https://${connect_instance_name}.awsapps.com/connect/ccp-v2#/`;
 
     connect.core.initCCP(containerDiv, {
         ccpUrl:        ccpUrl,
         loginPopup:    false, // ログイン画面をポップアップしない
+        region: region,
         softphone: {
             allowFramedSoftphone: true
         },
